@@ -1,0 +1,24 @@
+<div class="flex align-items-center mb-2">
+	<p-sidebar [(visible)]="displaySideBar">
+		<div class="flex flex-column">
+			<button [routerLink]="'/'" pButton pRipple class="p-button-text p-button-plain nav-item"> Home </button>
+			
+			<button [routerLink]="'/login'" pButton pRipple class="p-button-text p-button-plain nav-item"> Iniciar sesión </button>
+			
+			<button [routerLink]="'/signin'" pButton pRipple class="p-button-text p-button-plain nav-item"> Registrarme </button>
+
+			<button [routerLink]="'/users-manager'" pButton pRipple class="p-button-text p-button-plain nav-item"> Usuarios </button>
+		</div>
+	</p-sidebar>
+	
+	<button pButton pRipple type="button" icon="pi pi-list" 
+		class="p-button-text" (click)="this.displaySideBar = true">
+	</button>
+
+	<!-- SPACER -->
+	<div class="flex-grow-1"></div>
+	
+	<div class="mr-2 text-xl font-bold logo-font" [routerLink]="'/'" style="cursor:pointer">
+		Turn<span class="text-primary">OS</span>
+	</div>
+</div>

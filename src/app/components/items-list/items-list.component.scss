@@ -1,0 +1,29 @@
+.chip{
+	padding: .4rem;
+	cursor: pointer;
+	background-color: rgb(244, 244, 244);
+	border-radius: 10px;
+}
+
+.chip:hover{
+	background-color: rgb(235, 235, 235);
+	color: #2196f3;
+}
+
+.rounded{
+	border-radius: 50%;
+}
+
+.item-selected{
+	padding: .4rem;
+	cursor: pointer;
+	background-color: rgb(235, 235, 235);
+	color: #2196f3;
+	font-weight:600;
+	border-radius: 10px;
+}
+
+.list-container{
+	max-height: 6rem;
+	overflow-y: auto;
+}

@@ -28,7 +28,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+				"node_modules/primeng/resources/themes/saga-blue/theme.css",
+                "node_modules/primeng/resources/primeng.min.css",
+                "node_modules/primeflex/primeflex.css",
+                "node_modules/primeicons/primeicons.css",
+				"src/styles.scss"
             ],
             "scripts": []
           },
@@ -96,9 +100,23 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+			  "node_modules/primeicons/primeicons.css",
+			  "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+			  "node_modules/primeng/resources/primeng.min.css",
+			  "node_modules/primeflex/primeflex.css"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "turnOS:build:production",
+            "firebaseProject": "turnos-4a420",
+            "firebaseHostingSite": "turn-os"
           }
         }
       }

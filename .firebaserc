@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "turnos-4a420": {
+      "hosting": {
+        "turnOS": [
+          "turn-os"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "turnos-4a420"
+  }
+}
