@@ -34,9 +34,9 @@ export class UsersService {
 	async getUserByEmail(email: string) {
 		const q = query(this.usersCollection, where("email", "==", email));
 		const querySnapshot = await getDocs(q);
-		let documents:DocumentData[] = [];
+		let documents:User[] = [];
 		querySnapshot.docs.forEach(doc => {
-			let docData = doc.data();
+			let docData = doc.data() as User;
 			documents.push(docData);
 		})
 		return documents;
@@ -58,8 +58,9 @@ export class UsersService {
 					email: specialist.email,
 					type: specialist.type,
 					name: specialist.name,
-					borningDate: specialist.borningDate,
+					birthDate: specialist.birthDate,
 					dni: specialist.dni,
+					emailVerified: specialist.emailVerified,
 					images: specialist.images,
 					speciality: specialist.speciality
 				})
@@ -71,8 +72,9 @@ export class UsersService {
 					email: patient.email,
 					type: patient.type,
 					name: patient.name,
-					borningDate: patient.borningDate,
+					birthDate: patient.birthDate,
 					dni: patient.dni,
+					emailVerified: patient.emailVerified,
 					images: patient.images,
 					healthInsurance: patient.healthInsurance
 				})
@@ -83,8 +85,9 @@ export class UsersService {
 					email: user.email,
 					type: user.type,
 					name: user.name,
-					borningDate: user.borningDate,
+					birthDate: user.birthDate,
 					dni: user.dni,
+					emailVerified: user.emailVerified,
 					images: user.images
 				})
 			break;
@@ -119,8 +122,9 @@ export class UsersService {
 					email: specialist.email,
 					type: specialist.type,
 					name: specialist.name,
-					borningDate: specialist.borningDate,
+					birthDate: specialist.birthDate,
 					dni: specialist.dni,
+					emailVerified: specialist.emailVerified,
 					images: specialist.images,
 					speciality: specialist.speciality
 				})
@@ -132,8 +136,9 @@ export class UsersService {
 					email: patient.email,
 					type: patient.type,
 					name: patient.name,
-					borningDate: patient.borningDate,
+					birthDate: patient.birthDate,
 					dni: patient.dni,
+					emailVerified: patient.emailVerified,
 					images: patient.images,
 					healthInsurance: patient.healthInsurance
 				})
@@ -144,8 +149,9 @@ export class UsersService {
 					email: user.email,
 					type: user.type,
 					name: user.name,
-					borningDate: user.borningDate,
+					birthDate: user.birthDate,
 					dni: user.dni,
+					emailVerified: user.emailVerified,
 					images: user.images
 				})
 			break;

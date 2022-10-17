@@ -15,7 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { SigninComponent } from './components/signin/signin.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {HttpClientModule} from '@angular/common/http';
 import { ItemsListComponent } from './components/items-list/items-list.component';
@@ -44,7 +44,8 @@ import { ServiceAuth } from './services/auth.service';
 		BrowserAnimationsModule,
 		AppRoutingModule,
 		FormsModule,
-    	AngularFireModule.initializeApp(environment.firebase),
+		ReactiveFormsModule,
+		AngularFireModule.initializeApp(environment.firebase),
 		provideFirebaseApp(() => initializeApp(environment.firebase)),
 		provideAuth(() => getAuth()),
 		provideFirestore(() => getFirestore()),

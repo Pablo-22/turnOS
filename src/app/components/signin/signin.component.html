@@ -10,98 +10,102 @@
 		<div>
 			<p-tabView>
 				<p-tabPanel header="Paciente">
-					<div class="flex flex-row gap-3 w-full">
-						<div class="w-full">
-							<label for="name" class="block text-900 font-medium mb-2">Nombre</label>
-							<input id="name" type="text" pInputText class="w-full mb-3" placeholder="Nombre">
+					<form [formGroup]="this.patientForm">
+						<div class="flex flex-row gap-3 w-full">
+							<div class="w-full">
+								<label for="name" class="block text-900 font-medium mb-2">Nombre</label>
+								<input formControlName="pName" id="name" type="text" pInputText class="w-full mb-3" placeholder="Nombre">
+							</div>
+							
+							<div class="w-full">
+								<label for="lastName" class="block text-900 font-medium mb-2">Apellido</label>
+								<input formControlName="pLastName" id="lastName" type="text" pInputText class="w-full mb-3" placeholder="Apellido">
+							</div>
 						</div>
-						
-						<div class="w-full">
-							<label for="lastName" class="block text-900 font-medium mb-2">Apellido</label>
-							<input id="lastName" type="text" pInputText class="w-full mb-3" placeholder="Apellido">
+	
+						<div class="flex flex-row gap-3 w-full">
+							<div class="w-full">
+								<label for="DNI" class="block text-900 font-medium mb-2">DNI</label>
+								<input formControlName="pDni" id="DNI" type="text" pInputText class="w-full mb-3" placeholder="DNI">
+							</div>
+	
+							<div class="w-full">
+								<label for="obraSocial" class="block text-900 font-medium mb-2">Obra Social</label>
+								<input formControlName="pHealthInsurance" id="obraSocial" type="text" pInputText class="w-full mb-3" placeholder="Obra Social">
+							</div>
+							
+							<div class="w-full">
+								<label for="fechaNacimiento" class="block text-900 font-medium mb-2">Fecha de nacimiento</label>
+								<p-calendar formControlName="pBirthDate" id="fechaNacimiento" [(ngModel)]="this.birthDate"></p-calendar>
+							</div>
 						</div>
-					</div>
-
-					<div class="flex flex-row gap-3 w-full">
-						<div class="w-full">
-							<label for="DNI" class="block text-900 font-medium mb-2">DNI</label>
-							<input id="DNI" type="text" pInputText class="w-full mb-3" placeholder="DNI">
+	
+						<label class="block text-900 font-medium mb-2">Foto de perfil</label>
+						<div class="flex flex-row gap-3 w-full mb-3">
+							<label class="custom-file-upload">
+								<input type="file"/>
+								Imagen 1
+							</label>
+	
+							<label class="custom-file-upload">
+								<input type="file"/>
+								Imagen 2
+							</label>
 						</div>
-
-						<div class="w-full">
-							<label for="obraSocial" class="block text-900 font-medium mb-2">Obra Social</label>
-							<input id="obraSocial" type="text" pInputText class="w-full mb-3" placeholder="Obra Social">
-						</div>
-						
-						<div class="w-full">
-							<label for="fechaNacimiento" class="block text-900 font-medium mb-2">Fecha de nacimiento</label>
-							<p-calendar id="fechaNacimiento" [(ngModel)]="this.borningDate"></p-calendar>
-						</div>
-					</div>
-
-					<label class="block text-900 font-medium mb-2">Foto de perfil</label>
-					<div class="flex flex-row gap-3 w-full mb-3">
-						<label class="custom-file-upload">
-							<input type="file"/>
-							Imagen 1
-						</label>
-
-						<label class="custom-file-upload">
-							<input type="file"/>
-							Imagen 2
-						</label>
-					</div>
-		
-					<label for="email1" class="block text-900 font-medium mb-2">Email</label>
-					<input id="email1" type="text" pInputText class="w-full mb-3">
 			
-					<label for="password1" class="block text-900 font-medium mb-2">Password</label>
-					<input id="password1" type="password" pInputText class="w-full mb-3">
-
+						<label for="email1" class="block text-900 font-medium mb-2">Email</label>
+						<input formControlName="pEmail" id="email1" type="text" pInputText class="w-full mb-3">
+				
+						<label for="password1" class="block text-900 font-medium mb-2">Password</label>
+						<input formControlName="pPassword" id="password1" type="password" pInputText class="w-full mb-3">
+	
+					</form>
 					<button pButton pRipple label="Iniciar sesión" icon="pi pi-user" class="mt-4 w-full"></button>
 				</p-tabPanel>
 
 				<p-tabPanel header="Especialista">
-					<div class="flex flex-row gap-3 w-full">
-						<div class="w-full">
-							<label for="name2" class="block text-900 font-medium mb-2">Nombre</label>
-							<input id="name2" type="text" pInputText class="w-full mb-3" placeholder="Nombre">
+					<form [formGroup]="this.specialistForm">
+						<div class="flex flex-row gap-3 w-full">
+							<div class="w-full">
+								<label for="name2" class="block text-900 font-medium mb-2">Nombre</label>
+								<input formControlName="sName" id="name2" type="text" pInputText class="w-full mb-3" placeholder="Nombre">
+							</div>
+							
+							<div class="w-full">
+								<label for="lastName2" class="block text-900 font-medium mb-2">Apellido</label>
+								<input formControlName="sLastName" id="lastName2" type="text" pInputText class="w-full mb-3" placeholder="Apellido">
+							</div>
 						</div>
-						
-						<div class="w-full">
-							<label for="lastName2" class="block text-900 font-medium mb-2">Apellido</label>
-							<input id="lastName2" type="text" pInputText class="w-full mb-3" placeholder="Apellido">
+	
+						<div class="flex flex-row gap-3 w-full">
+							<div class="w-full">
+								<label for="DNI2" class="block text-900 font-medium mb-2">DNI</label>
+								<input formControlName="sDni" id="DNI2" type="text" pInputText class="w-full mb-3" placeholder="DNI">
+							</div>
+	
+							<div class="w-full">
+								<label for="fechaNacimiento2" class="block text-900 font-medium mb-2">Fecha de nacimiento</label>
+								<p-calendar formControlName="sBirthDate" id="fechaNacimiento2" [(ngModel)]="this.birthDate"></p-calendar>
+							</div>
 						</div>
-					</div>
-
-					<div class="flex flex-row gap-3 w-full">
-						<div class="w-full">
-							<label for="DNI2" class="block text-900 font-medium mb-2">DNI</label>
-							<input id="DNI2" type="text" pInputText class="w-full mb-3" placeholder="DNI">
-						</div>
-
-						<div class="w-full">
-							<label for="fechaNacimiento2" class="block text-900 font-medium mb-2">Fecha de nacimiento</label>
-							<p-calendar id="fechaNacimiento2" [(ngModel)]="this.borningDate"></p-calendar>
-						</div>
-					</div>
-
-					<label class="block text-900 font-medium mb-2">Foto de perfil</label>
-					<label class="mb-3 custom-file-upload">
-						<input type="file"/>
-						Imagen
-					</label>
-		
-					<app-items-list title="Especialidad"></app-items-list>
-					<div class="mb-4"></div>
-
-
-					<label for="email2" class="block text-900 font-medium mb-2">Email</label>
-					<input id="email2" type="text" pInputText class="w-full mb-3">
+	
+						<label class="block text-900 font-medium mb-2">Foto de perfil</label>
+						<label class="mb-3 custom-file-upload">
+							<input type="file"/>
+							Imagen
+						</label>
 			
-					<label for="password2" class="block text-900 font-medium mb-2">Password</label>
-					<input id="password2" type="password" pInputText class="w-full mb-3">
-
+						<app-items-list title="Especialidad"></app-items-list>
+						<div class="mb-4"></div>
+	
+	
+						<label for="email2" class="block text-900 font-medium mb-2">Email</label>
+						<input formControlName="sEmail" id="email2" type="text" pInputText class="w-full mb-3">
+				
+						<label for="password2" class="block text-900 font-medium mb-2">Password</label>
+						<input formControlName="sPassword" id="password2" type="password" pInputText class="w-full mb-3">
+	
+					</form>
 					<button pButton pRipple label="Iniciar sesión" icon="pi pi-user" class="mt-4 w-full"></button>
 				</p-tabPanel>
 			</p-tabView>
