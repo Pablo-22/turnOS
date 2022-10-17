@@ -21,29 +21,40 @@ import {HttpClientModule} from '@angular/common/http';
 import { ItemsListComponent } from './components/items-list/items-list.component';
 import { CommonModule } from '@angular/common';
 import { UsersManagerComponent } from './components/users-manager/users-manager.component';
+import { provideStorage,getStorage } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { CustomDialogComponent } from './components/custom-dialog/custom-dialog.component';
+import { ServiceAuth } from './services/auth.service';
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    NavbarComponent,
-    LoginComponent,
-    SigninComponent,
-    ItemsListComponent,
-    UsersManagerComponent
-  ],
-  imports: [
-	CommonModule,
-    BrowserModule,
-	BrowserAnimationsModule,
-    AppRoutingModule,
-	FormsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    PrimeNgModule,
-	HttpClientModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  	declarations: [
+		AppComponent,
+		HomeComponent,
+		NavbarComponent,
+		LoginComponent,
+		SigninComponent,
+		ItemsListComponent,
+		UsersManagerComponent,
+  		CustomDialogComponent,
+  	],
+  	imports: [
+		CommonModule,
+		BrowserModule,
+		BrowserAnimationsModule,
+		AppRoutingModule,
+		FormsModule,
+    	AngularFireModule.initializeApp(environment.firebase),
+		provideFirebaseApp(() => initializeApp(environment.firebase)),
+		provideAuth(() => getAuth()),
+		provideFirestore(() => getFirestore()),
+		PrimeNgModule,
+		HttpClientModule,
+		provideStorage(() => getStorage()),
+		AngularFireModule,
+		AngularFireStorageModule
+	],
+	providers: [ServiceAuth],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

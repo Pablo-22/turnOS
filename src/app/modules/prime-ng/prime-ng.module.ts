@@ -15,8 +15,8 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {AutoFocusModule} from 'primeng/autofocus';
 import {DataViewModule} from 'primeng/dataview';
 import {DropdownModule} from 'primeng/dropdown';
-
-
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [],
@@ -36,6 +36,8 @@ import {DropdownModule} from 'primeng/dropdown';
 	AutoFocusModule,
 	DataViewModule,
 	DropdownModule,
+	DynamicDialogModule,
+	DialogModule,
   ]
 })
 export class PrimeNgModule { }
