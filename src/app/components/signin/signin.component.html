@@ -8,7 +8,7 @@
 		</div>
 	
 		<div>
-			<p-tabView>
+			<p-tabView [(activeIndex)]="this.formIndex">
 				<p-tabPanel header="Paciente">
 					<form [formGroup]="this.patientForm">
 						<div class="flex flex-row gap-3 w-full">
@@ -60,7 +60,6 @@
 						<input formControlName="pPassword" id="password1" type="password" pInputText class="w-full mb-3">
 	
 					</form>
-					<button pButton pRipple label="Iniciar sesión" icon="pi pi-user" class="mt-4 w-full"></button>
 				</p-tabPanel>
 
 				<p-tabPanel header="Especialista">
@@ -95,7 +94,7 @@
 							Imagen
 						</label>
 			
-						<app-items-list title="Especialidad"></app-items-list>
+						<app-items-list [items]="this.specialities" title="Especialidad"></app-items-list>
 						<div class="mb-4"></div>
 	
 	
@@ -106,8 +105,8 @@
 						<input formControlName="sPassword" id="password2" type="password" pInputText class="w-full mb-3">
 	
 					</form>
-					<button pButton pRipple label="Iniciar sesión" icon="pi pi-user" class="mt-4 w-full"></button>
 				</p-tabPanel>
+				<button (click)="this.onRegister()" pButton pRipple label="Registrar" icon="pi pi-user" class="mt-4 w-full"></button>
 			</p-tabView>
 
 		</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Patient } from 'src/app/entities/patient';
 
 @Component({
   selector: 'app-signin',
@@ -12,6 +13,9 @@ export class SigninComponent implements OnInit {
 
 	patientForm: FormGroup;
 	specialistForm: FormGroup;
+
+	specialities:string[] = ['Pediatría', 'Psicología', 'Oftalmología', 'Otorrinolaringología', 'Cardiología' ]
+	formIndex:number = 0; // 0 = 'PATIENT'   1 = 'SPECIALIST'
 
 	constructor() {
 		this.patientForm = new FormGroup({
@@ -41,4 +45,23 @@ export class SigninComponent implements OnInit {
 		console.log($event);
 	}
 
+	onRegister(){
+		switch (this.formIndex) {
+			case 0: // PATIENT
+				let patient = new Patient()
+				patient.dni = this.patientForm.controls['pDni'].value;
+				patient.email = this.patientForm.controls['pEmail'].value;
+				patient.healthInsurance = this.patientForm.controls['pDni'].value;
+				patient.name = this.patientForm.controls['pDni'].value;
+				patient.type = 'PATIENT'
+				patient.password = this.patientForm.controls['pPassword'].value;
+				patient.birthDate = this.patientForm.controls['sBirthDate'].value;
+
+				console.log(patient);
+				break;
+			case 1: // SPECIALIST
+			
+				break;
+		}
+	}
 }
