@@ -60,7 +60,6 @@ export class UsersService {
 					name: specialist.name,
 					birthDate: specialist.birthDate,
 					dni: specialist.dni,
-					emailVerified: specialist.emailVerified,
 					images: specialist.images,
 					speciality: specialist.speciality
 				})
@@ -74,7 +73,6 @@ export class UsersService {
 					name: patient.name,
 					birthDate: patient.birthDate,
 					dni: patient.dni,
-					emailVerified: patient.emailVerified,
 					images: patient.images,
 					healthInsurance: patient.healthInsurance
 				})
@@ -87,7 +85,6 @@ export class UsersService {
 					name: user.name,
 					birthDate: user.birthDate,
 					dni: user.dni,
-					emailVerified: user.emailVerified,
 					images: user.images
 				})
 			break;
@@ -124,7 +121,6 @@ export class UsersService {
 					name: specialist.name,
 					birthDate: specialist.birthDate,
 					dni: specialist.dni,
-					emailVerified: specialist.emailVerified,
 					images: specialist.images,
 					speciality: specialist.speciality
 				})
@@ -138,7 +134,6 @@ export class UsersService {
 					name: patient.name,
 					birthDate: patient.birthDate,
 					dni: patient.dni,
-					emailVerified: patient.emailVerified,
 					images: patient.images,
 					healthInsurance: patient.healthInsurance
 				})
@@ -151,7 +146,6 @@ export class UsersService {
 					name: user.name,
 					birthDate: user.birthDate,
 					dni: user.dni,
-					emailVerified: user.emailVerified,
 					images: user.images
 				})
 			break;

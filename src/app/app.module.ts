@@ -25,7 +25,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { CustomDialogComponent } from './components/custom-dialog/custom-dialog.component';
-import { ServiceAuth } from './services/auth.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   	declarations: [
@@ -55,7 +55,7 @@ import { ServiceAuth } from './services/auth.service';
 		AngularFireModule,
 		AngularFireStorageModule
 	],
-	providers: [ServiceAuth],
+	providers: [AuthService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

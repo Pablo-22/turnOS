@@ -6,7 +6,11 @@ import { UsersService } from "./users.service";
 import { lastValueFrom } from "rxjs";
 
 @Injectable()
-export class ServiceAuth {
+export class AuthService {
+
+	emailVerified:boolean = false;
+	currentUserType:'SPECIALIST'|'PATIENT'|'ADMIN'|'' = '';
+	accountVerified:boolean = false;
     
     constructor(private _auth : AngularFireAuth, private _usersService:UsersService){}
 
@@ -22,7 +26,7 @@ export class ServiceAuth {
 			return result;
         }
         catch(error) {
-            alert("No se ha podido hacer el log-in correctamente. Error: " + error)
+            //alert("No se ha podido hacer el log-in correctamente. Error: " + error)
             //console.log("No se ha podido hacer el log-in correctamente. Error: " + error);
             return null;
         }
@@ -39,7 +43,7 @@ export class ServiceAuth {
 		}
 	}
 
-	async registro(email: string, password: string){
+	async signUp(email: string, password: string){
         try{
             let result:any = await this._auth.createUserWithEmailAndPassword(email, password);
 			
@@ -51,7 +55,7 @@ export class ServiceAuth {
 			return result;
         }
         catch(error) {
-            alert("No se ha podido hacer el registro correctamente. Error: " + error)
+            //alert("No se ha podido hacer el registro correctamente. Error: " + error)
             //console.log("No se ha podido hacer el registro correctamente. Error: " + error);
             return null;
         }
@@ -61,7 +65,11 @@ export class ServiceAuth {
 		this._auth.signOut();
 	}
 
-    getInfoUsuarioLoggeado(){
+    isUserLogged(){
         return this._auth.authState;
     }
+
+	getCurrentUser(){
+		return this._auth.currentUser;
+	}
 }
