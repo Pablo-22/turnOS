@@ -8,11 +8,14 @@ import { lastValueFrom } from "rxjs";
 @Injectable()
 export class AuthService {
 
+	userLogged = this._auth.authState;
+	currentUser:User|undefined;
 	emailVerified:boolean = false;
-	currentUserType:'SPECIALIST'|'PATIENT'|'ADMIN'|'' = '';
 	accountVerified:boolean = false;
+
     
-    constructor(private _auth : AngularFireAuth, private _usersService:UsersService){}
+    constructor(private _auth : AngularFireAuth, private _usersService:UsersService){
+	}
 
     async login(email: string, password: string){
         try{
@@ -21,7 +24,11 @@ export class AuthService {
 			let user:User = new User();
 			user.email = email;
 
-			this._usersService.pushLoginLog(user);
+			this._usersService.getUserByEmail(email).then(user => {
+				this.currentUser = user[0];
+			});
+
+			//this._usersService.pushLoginLog(user);
 			
 			return result;
         }

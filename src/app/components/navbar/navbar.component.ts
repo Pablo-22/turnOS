@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
 	selector: 'app-navbar',
@@ -7,17 +8,37 @@ import { MenuItem } from 'primeng/api';
 	styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-	displaySideBar:boolean = false;
-	items: MenuItem[] = [];
 
-	constructor() { }
+	userType:'SPECIALIST' | 'PATIENT' | 'ADMIN' | '' = '';
+
+	displaySideBar:boolean = false;
+	UserLogged:boolean = false;
+
+
+
+	constructor(private _auth:AuthService) {
+		this._auth.userLogged.subscribe(x => {
+			if (x) {
+				this.UserLogged = true;
+			} else {
+				this.UserLogged = false;
+			}
+		})
+	}
 
 	ngOnInit(): void {
-		this.items = [
-            {label: 'New', icon: 'pi pi-fw pi-plus'},
-            {label: 'Open', icon: 'pi pi-fw pi-download'},
-            {label: 'Undo', icon: 'pi pi-fw pi-refresh'}
-        ];
+
+	}
+
+	onLogOut(){
+		this._auth.logOut();
+	}
+
+	haveAdminAccess(){
+		if (this.UserLogged && this._auth.currentUser?.type == 'ADMIN') {
+			return true;
+		}
+		return false;
 	}
 
 }

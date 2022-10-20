@@ -5,6 +5,7 @@ import { Log } from '../entities/log';
 import { Patient } from '../entities/patient';
 import { Specialist } from '../entities/specialist';
 import { User } from '../entities/user';
+import { AuthService } from './auth.service';
 
 @Injectable({
   	providedIn: 'root'
@@ -60,6 +61,7 @@ export class UsersService {
 					password: specialist.password,
 					type: specialist.type,
 					name: specialist.name,
+					surname: specialist.surname,
 					birthDate: specialist.birthDate,
 					dni: specialist.dni,
 					images: specialist.images,
@@ -75,6 +77,7 @@ export class UsersService {
 					password: patient.password,
 					type: patient.type,
 					name: patient.name,
+					surname: patient.surname,
 					birthDate: patient.birthDate,
 					dni: patient.dni,
 					images: patient.images,
@@ -89,6 +92,7 @@ export class UsersService {
 					password: user.password,
 					type: user.type,
 					name: user.name,
+					surname: user.surname,
 					birthDate: user.birthDate,
 					dni: user.dni,
 					images: user.images

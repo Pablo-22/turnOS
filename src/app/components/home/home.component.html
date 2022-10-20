@@ -9,10 +9,10 @@
 			</p>
             
 			<div class="flex flex-wrap gap-3">
-				<button [routerLink]="'/login'" pButton pRipple type="button" class="p-button-raised">
+				<button *ngIf="!this.UserLogged" [routerLink]="'/login'" pButton pRipple type="button" class="p-button-raised">
 					Iniciar sesión
 				</button>
-				<button [routerLink]="'/signin'" pButton pRipple type="button" class="p-button-outlined">
+				<button *ngIf="!this.UserLogged" [routerLink]="'/signin'" pButton pRipple type="button" class="p-button-outlined">
 					Registrarme
 				</button>
 			</div>

@@ -3,11 +3,14 @@
 		<div class="flex flex-column">
 			<button [routerLink]="'/'" pButton pRipple class="p-button-text p-button-plain nav-item"> Home </button>
 			
-			<button [routerLink]="'/login'" pButton pRipple class="p-button-text p-button-plain nav-item"> Iniciar sesión </button>
+			<button *ngIf="!this.UserLogged" [routerLink]="'/login'" pButton pRipple class="p-button-text p-button-plain nav-item"> Iniciar sesión </button>
 			
-			<button [routerLink]="'/signin'" pButton pRipple class="p-button-text p-button-plain nav-item"> Registrarme </button>
+			<button *ngIf="!this.UserLogged" [routerLink]="'/signin'" pButton pRipple class="p-button-text p-button-plain nav-item"> Registrarme </button>
 
-			<button [routerLink]="'/users-manager'" pButton pRipple class="p-button-text p-button-plain nav-item"> Usuarios </button>
+			<button *ngIf="this.haveAdminAccess()" [routerLink]="'/users-manager'" pButton pRipple class="p-button-text p-button-plain nav-item"> Usuarios </button>
+
+
+			<button *ngIf="this.UserLogged" (click)="this.onLogOut()" pButton pRipple class="p-button-text p-button-plain nav-item"> Cerrar sesión </button>
 		</div>
 	</p-sidebar>
 	
