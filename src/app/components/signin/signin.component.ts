@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/compat/storage';
 import { Timestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { finalize } from 'rxjs';
 import { DialogData } from 'src/app/entities/dialog-data';
 import { Patient } from 'src/app/entities/patient';
 import { Specialist } from 'src/app/entities/specialist';
@@ -13,6 +16,8 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
+
+	displayLoadingSpinner:boolean = false;
 
 	displayDialog:boolean = false;
 	dialogData:DialogData = new DialogData();
@@ -31,9 +36,10 @@ export class SigninComponent implements OnInit {
 
 	patientImages:any[] = [];
 	specialistImages:any[] = [];
+	currentFileRef:AngularFireStorageReference | undefined;
 	
 
-	constructor(private _auth:AuthService, private _users:UsersService) {
+	constructor(private _auth:AuthService, private _users:UsersService, private _storage: AngularFireStorage, private _router: Router) {
 		this.patientForm = new FormGroup({
 			pName: new FormControl('', [Validators.required] ),
 			pSurname: new FormControl('', [Validators.required] ),
@@ -60,6 +66,7 @@ export class SigninComponent implements OnInit {
 	}
 
 	onRegister(){
+		this.displayLoadingSpinner = true;
 		switch (this.formIndex) {
 			case 0: // PATIENT
 				if (this.patientForm.status != 'VALID') {
@@ -67,6 +74,8 @@ export class SigninComponent implements OnInit {
 					this.dialogData.body = 'Por favor revise los datos ingresados. Todos los campos son obligatorios';
 					this.dialogData.buttonText = 'Aceptar';
 					this.displayDialog = true;
+
+					this.displayLoadingSpinner = false;
 					return;
 				}
 
@@ -88,16 +97,26 @@ export class SigninComponent implements OnInit {
 				this._auth.signUp(patient.email, patient.password).then(x => {
 					console.log(x);
 					if (x) {
+
 						this._users.create(patient);
 						let createdUser = this._auth.getCurrentUser();
 						createdUser.then(x => {
 							console.log('USUARIO CREADO', x);
 							x?.sendEmailVerification().then(() => {
+								this.displayLoadingSpinner = false;
+
 								this.dialogData.title = 'Verificación enviada';
 								this.dialogData.body = 'Se ha registrado tu cuenta. Se envió un email a tu correo electrónico con las instrucciones para verificar tu cuenta. No olvides revisar la carpeta de spam';
 								this.dialogData.buttonText = 'Aceptar';
 								this.displayDialog = true;
+								this.dialogData.onHideEvent = () => {
+									this._router.navigate(['/login']);
+								}
+
+
 							}).catch(() => {
+								this.displayLoadingSpinner = false;
+
 								this.dialogData.title = 'Error';
 								this.dialogData.body = 'No se ha podido enviar el email de verificación. Por favor revise los datos ingresados';
 								this.dialogData.buttonText = 'Aceptar';
@@ -105,6 +124,8 @@ export class SigninComponent implements OnInit {
 							});
 						})
 					} else {
+						this.displayLoadingSpinner = false;
+
 						this.dialogData.title = 'Error';
 						this.dialogData.body = 'No se ha podido realizar el registro correctamente. Por favor verifique los datos ingresados. Puede que el email sea inválido o esté en uso.';
 						this.dialogData.buttonText = 'Aceptar';
@@ -114,6 +135,7 @@ export class SigninComponent implements OnInit {
 				break;
 			case 1: // SPECIALIST
 				if (this.specialistForm.status != 'VALID' || !this.specialitySelected) {
+					this.displayLoadingSpinner = false;
 					this.dialogData.title = 'Error';
 					this.dialogData.body = 'Por favor revise los datos ingresados. Todos los campos son obligatorios';
 					this.dialogData.buttonText = 'Aceptar';
@@ -122,13 +144,13 @@ export class SigninComponent implements OnInit {
 				}
 
 				let specialist = new Specialist()
-				specialist.dni = this.specialistForm.controls['pDni'].value;
-				specialist.email = this.specialistForm.controls['pEmail'].value;
+				specialist.dni = this.specialistForm.controls['sDni'].value;
+				specialist.email = this.specialistForm.controls['sEmail'].value;
 				specialist.speciality = this.specialitySelected;
-				specialist.name = this.specialistForm.controls['pName'].value;
-				specialist.surname = this.specialistForm.controls['pSurname'].value;
-				specialist.type = 'PATIENT'
-				specialist.password = this.specialistForm.controls['pPassword'].value;
+				specialist.name = this.specialistForm.controls['sName'].value;
+				specialist.surname = this.specialistForm.controls['sSurname'].value;
+				specialist.type = 'SPECIALIST'
+				specialist.password = this.specialistForm.controls['sPassword'].value;
 
 				let sDate = this.sBirthDate;
 				sDate.setMinutes( sDate.getMinutes() + sDate.getTimezoneOffset() ); // Para corregir problemas de zona horaria
@@ -142,13 +164,17 @@ export class SigninComponent implements OnInit {
 						this._users.create(specialist);
 						let createdUser = this._auth.getCurrentUser();
 						createdUser.then(x => {
-							console.log('USUARIO CREADO', x);
 							x?.sendEmailVerification().then(() => {
+								this.displayLoadingSpinner = false;
+
 								this.dialogData.title = 'Verificación enviada';
 								this.dialogData.body = 'Se ha registrado tu cuenta. Se envió un email a tu correo electrónico con las instrucciones para verificar tu cuenta. No olvides revisar la carpeta de spam';
 								this.dialogData.buttonText = 'Aceptar';
 								this.displayDialog = true;
+
+								this._router.navigate(['/login'])
 							}).catch(() => {
+								this.displayLoadingSpinner = false;
 								this.dialogData.title = 'Error';
 								this.dialogData.body = 'No se ha podido enviar el email de verificación. Por favor revise los datos ingresados';
 								this.dialogData.buttonText = 'Aceptar';
@@ -156,6 +182,7 @@ export class SigninComponent implements OnInit {
 							});
 						})
 					} else {
+						this.displayLoadingSpinner = false;
 						this.dialogData.title = 'Error';
 						this.dialogData.body = 'No se ha podido realizar el registro correctamente. Por favor verifique los datos ingresados. Puede que el email sea inválido o esté en uso.';
 						this.dialogData.buttonText = 'Aceptar';
@@ -167,20 +194,63 @@ export class SigninComponent implements OnInit {
 	}
 
 	handleFileInput(event:any){
-		if (event.files.length > 2) {
-			alert("Only 5 files accepted.");
-			return
-		}
+		
 		switch (this.formIndex) {
 			case 0: // PATIENT
-				this.patientImages.push(event.files);
-				console.log(this.patientImages);
+
+				if (event.files.length != 2 || !this.checkImages(event.files as FileList)) {
+					this.dialogData.title = 'Error';
+					this.dialogData.body = 'Debe seleccionar dos imágenes para completar el registro correctamente';
+					this.dialogData.buttonText = 'Aceptar';
+					this.displayDialog = true;
+					return
+				}
+				this.patientImages = []
+
+				Object.entries(event.files).forEach(([key, file]) => {
+					this.patientImages.push(file);
+				});
+
 				break;
 			case 1: // SPECIALIST
-				this.specialistImages.push(event.files);
+
+				if (event.files.length != 1) {
+					this.dialogData.title = 'Error';
+					this.dialogData.body = 'Debe seleccionar una imagen para completar el registro correctamente';
+					this.dialogData.buttonText = 'Aceptar';
+					this.displayDialog = true;
+					return
+				}
+				this.specialistImages = []
+				
+				Object.entries(event.files).forEach(([key, file]) => {
+					this.specialistImages.push(file);
+				});
+
+				
 				break;
 		}
 
 		console.log(event.files);
+	}
+
+	checkImages(files:FileList){
+		console.log(files);
+		let valid = true;
+		Object.entries(files).forEach(([key, file]) => {
+			console.log(key, ':', file)
+			let type = file.type.split('/')[0];
+			if (type != 'image') {
+				valid = false;
+			}
+		});
+			
+		return valid;
+	}
+
+	uploadImage(file:File){
+		const filePath = 'profileImg/' + file.name;
+		this.currentFileRef = this._storage.ref(filePath);
+		return this._storage.upload(filePath, file);
 	}
 }

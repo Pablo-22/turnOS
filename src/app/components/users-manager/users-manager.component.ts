@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
+import { User } from 'src/app/entities/user';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
 	selector: 'app-users-manager',
@@ -8,31 +10,17 @@ import { SelectItem } from 'primeng/api';
 })
 export class UsersManagerComponent implements OnInit {
 	
-	users: any[] = [{name:'hola', description:'test'}];
+	users: User[] = [];
 
-	sortOptions: SelectItem[] = [];
-
-    sortKey: string = '';
-
-    sortField: string = '';
-
-    sortOrder: number = 0;
-
-	constructor() { }
+	constructor(private _users:UsersService) { }
 
 	ngOnInit(): void {
+		this._users.getAll().subscribe(result => {
+			this.users = result;
+		})
 	}
 
-	onSortChange($event:any){
-		let value = $event.value;
-
-        if (value.indexOf('!') === 0) {
-            this.sortOrder = -1;
-            this.sortField = value.substring(1, value.length);
-        }
-        else {
-            this.sortOrder = 1;
-            this.sortField = value;
-        }
+	updateUserStatus(user:User){
+		this._users.update(user);
 	}
 }

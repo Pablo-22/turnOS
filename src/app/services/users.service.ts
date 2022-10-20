@@ -56,6 +56,8 @@ export class UsersService {
 				setDoc(newUserDocRef, {
 					id: newUserDocRef.id,
 					email: specialist.email,
+					approvedProfile: specialist.approvedProfile,
+					password: specialist.password,
 					type: specialist.type,
 					name: specialist.name,
 					birthDate: specialist.birthDate,
@@ -69,6 +71,8 @@ export class UsersService {
 				setDoc(newUserDocRef, {
 					id: newUserDocRef.id,
 					email: patient.email,
+					approvedProfile: patient.approvedProfile,
+					password: patient.password,
 					type: patient.type,
 					name: patient.name,
 					birthDate: patient.birthDate,
@@ -81,6 +85,8 @@ export class UsersService {
 				setDoc(newUserDocRef, {
 					id: newUserDocRef.id,
 					email: user.email,
+					approvedProfile: user.approvedProfile,
+					password: user.password,
 					type: user.type,
 					name: user.name,
 					birthDate: user.birthDate,
@@ -117,6 +123,8 @@ export class UsersService {
 				updateDoc(userDocumentReference, {
 					id: specialist.id,
 					email: specialist.email,
+					approvedProfile: specialist.approvedProfile,
+					password: specialist.password,
 					type: specialist.type,
 					name: specialist.name,
 					birthDate: specialist.birthDate,
@@ -130,6 +138,8 @@ export class UsersService {
 				updateDoc(userDocumentReference, {
 					id: patient.id,
 					email: patient.email,
+					approvedProfile: patient.approvedProfile,
+					password: patient.password,
 					type: patient.type,
 					name: patient.name,
 					birthDate: patient.birthDate,
@@ -142,6 +152,8 @@ export class UsersService {
 				updateDoc(userDocumentReference, {
 					id: user.id,
 					email: user.email,
+					approvedProfile: user.approvedProfile,
+					password: user.password,
 					type: user.type,
 					name: user.name,
 					birthDate: user.birthDate,

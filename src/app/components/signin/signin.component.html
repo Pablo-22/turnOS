@@ -1,11 +1,18 @@
-<p-dialog [header]="this.dialogData.title" [(visible)]="this.displayDialog">
+<p-dialog (onHide)="this.dialogData.onHideEvent ? this.dialogData.onHideEvent() : '' " [header]="this.dialogData.title" [(visible)]="this.displayDialog">
     <app-custom-dialog [data]="this.dialogData" (displayChanged)="this.displayDialog = $event"></app-custom-dialog>
 </p-dialog>
 
 <div class="flex justify-content-center">
 	<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
 		<div class="text-center mb-5">
-			<i class="pi pi-user text-primary" style="font-size: 2rem"></i>
+
+			<i *ngIf="!this.displayLoadingSpinner; else LoadingSpinner" class="pi pi-user text-primary" style="font-size: 2rem"></i>
+
+			<ng-template #LoadingSpinner>
+				<p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+			</ng-template>
+			
+
 			<div class="text-900 text-3xl font-semibold mb-3">Registrar cuenta</div>
 			<span class="text-600 font-medium line-height-3">¿Ya estás registrado?</span>
 			<a [routerLink]="'/login'" class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Iniciar sesión</a>
@@ -44,15 +51,15 @@
 							</div>
 						</div>
 	
-						<label class="block text-900 font-medium mb-2">Foto de perfil</label>
-						<div class="flex flex-row gap-3 w-full mb-3">
+						<div *ngIf="false"  class="flex flex-row gap-3 w-full mb-3">
+							<label class="block text-900 font-medium mb-2">Foto de perfil</label>
 							<label class="custom-file-upload">
 								<input multiple (change)="handleFileInput($event.target)" type="file"/>
 								Imagen 1
 							</label>
 
 						</div>
-						<p *ngFor="let image of patientImages" class="text-400"> HOLA {{ image.name  }} </p>
+						<p *ngFor="let image of patientImages" class="text-400">{{ image.name  }} </p>
 
 			
 						<label for="email1" class="block text-900 font-medium mb-2">Email</label>
@@ -90,7 +97,7 @@
 							</div>
 						</div>
 	
-						<div class="flex flex-column">
+						<div *ngIf="false" class="flex flex-column">
 							<label class="block text-900 font-medium mb-2">Foto de perfil</label>
 							<label class="mb-3 custom-file-upload">
 								<input (change)="handleFileInput($event.target)" type="file"/>

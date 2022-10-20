@@ -17,6 +17,9 @@ import {DataViewModule} from 'primeng/dataview';
 import {DropdownModule} from 'primeng/dropdown';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {DialogModule} from 'primeng/dialog';
+import {CardModule} from 'primeng/card';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [],
@@ -38,6 +41,9 @@ import {DialogModule} from 'primeng/dialog';
 	DropdownModule,
 	DynamicDialogModule,
 	DialogModule,
+	CardModule,
+	InputSwitchModule,
+	ProgressSpinnerModule,
   ]
 })
 export class PrimeNgModule { }

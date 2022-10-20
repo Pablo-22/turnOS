@@ -19,6 +19,9 @@ export class CustomDialogComponent implements OnInit {
 	}
 
 	onClose(){
+		if (this.data.onHideEvent) {
+			this.data.onHideEvent();
+		}
 		this.displayChanged.emit(false);
 	}
 
