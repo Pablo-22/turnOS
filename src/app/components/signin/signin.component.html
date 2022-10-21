@@ -2,128 +2,34 @@
     <app-custom-dialog [data]="this.dialogData" (displayChanged)="this.displayDialog = $event"></app-custom-dialog>
 </p-dialog>
 
-<div class="flex justify-content-center">
-	<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-		<div class="text-center mb-5">
+<div class="text-center mb-5">
+	<i class="pi pi-user text-primary" style="font-size: 2rem"></i>
+	<div class="text-900 text-3xl font-semibold mb-3">Crear cuenta</div>
+	<span class="text-600 font-medium line-height-3">¿Ya estás registrado?</span>
+	<a [routerLink]="'/signin'" class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Iniciar sesión</a>
+</div>
 
-			<i *ngIf="!this.displayLoadingSpinner; else LoadingSpinner" class="pi pi-user text-primary" style="font-size: 2rem"></i>
+<div class="flex flex-row gap-6 justify-content-center align-items-stretch">
+	<p-card header="Especialista" [style]="{'width': '15rem', 'height': '31rem'}">
+		<ng-template pTemplate="header">
+			<img alt="Card" src="../../../assets/pexels-antoni-shkraba-6749773.jpg">
+		</ng-template>
+		<p>Configure su disponibilidad y permita a los pacientes reservar turnos</p>
 
-			<ng-template #LoadingSpinner>
-				<p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
-			</ng-template>
-			
+		<ng-template pTemplate="footer">
+			<p-button label="Registrar" icon="pi pi-check"></p-button>
+		</ng-template>
+	</p-card>
+	
+	
+	<p-card header="Paciente" [style]="{'width': '15rem', 'height': '31rem'}">
+		<ng-template pTemplate="header">
+			<img alt="Card" src="../../../assets/pexels-mart-production-7089019.jpg">
+		</ng-template>
+		<p>Consulte la disponibilidad de los especialistas para agendar turnos</p>
 
-			<div class="text-900 text-3xl font-semibold mb-3">Registrar cuenta</div>
-			<span class="text-600 font-medium line-height-3">¿Ya estás registrado?</span>
-			<a [routerLink]="'/login'" class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Iniciar sesión</a>
-		</div>
-	
-		<div>
-			<p-tabView [(activeIndex)]="this.formIndex">
-				<p-tabPanel header="Paciente">
-					<form [formGroup]="this.patientForm">
-						<div class="flex flex-row gap-3 w-full">
-							<div class="w-full">
-								<label for="name" class="block text-900 font-medium mb-2">Nombre</label>
-								<input formControlName="pName" id="name" type="text" pInputText class="w-full mb-3" placeholder="Nombre">
-							</div>
-							
-							<div class="w-full">
-								<label for="Surname" class="block text-900 font-medium mb-2">Apellido</label>
-								<input formControlName="pSurname" id="Surname" type="text" pInputText class="w-full mb-3" placeholder="Apellido">
-							</div>
-						</div>
-	
-						<div class="flex flex-row gap-3 w-full">
-							<div class="w-full">
-								<label for="DNI" class="block text-900 font-medium mb-2">DNI</label>
-								<input formControlName="pDni" id="DNI" type="text" pInputText class="w-full mb-3" placeholder="DNI">
-							</div>
-	
-							<div class="w-full">
-								<label for="obraSocial" class="block text-900 font-medium mb-2">Obra Social</label>
-								<input formControlName="pHealthInsurance" id="obraSocial" type="text" pInputText class="w-full mb-3" placeholder="Obra Social">
-							</div>
-							
-							<div class="w-full">
-								<label for="fechaNacimiento" class="block text-900 font-medium mb-2">Fecha de nacimiento</label>
-								<p-calendar id="fechaNacimiento" dateFormat="dd/mm/yy" [ngModelOptions]="{standalone: true}"  [(ngModel)]="this.pBirthDate"></p-calendar>
-							</div>
-						</div>
-	
-						<div *ngIf="false"  class="flex flex-row gap-3 w-full mb-3">
-							<label class="block text-900 font-medium mb-2">Foto de perfil</label>
-							<label class="custom-file-upload">
-								<input multiple (change)="handleFileInput($event.target)" type="file"/>
-								Imagen 1
-							</label>
-
-						</div>
-						<p *ngFor="let image of patientImages" class="text-400">{{ image.name  }} </p>
-
-			
-						<label for="email1" class="block text-900 font-medium mb-2">Email</label>
-						<input formControlName="pEmail" id="email1" type="text" pInputText class="w-full mb-3">
-				
-						<label for="password1" class="block text-900 font-medium mb-2">Password</label>
-						<input formControlName="pPassword" id="password1" type="password" pInputText class="w-full mb-3">
-	
-					</form>
-				</p-tabPanel>
-
-				<p-tabPanel header="Especialista">
-					<form [formGroup]="this.specialistForm">
-						<div class="flex flex-row gap-3 w-full">
-							<div class="w-full">
-								<label for="name2" class="block text-900 font-medium mb-2">Nombre</label>
-								<input formControlName="sName" id="name2" type="text" pInputText class="w-full mb-3" placeholder="Nombre">
-							</div>
-							
-							<div class="w-full">
-								<label for="Surname2" class="block text-900 font-medium mb-2">Apellido</label>
-								<input formControlName="sSurname" id="Surname2" type="text" pInputText class="w-full mb-3" placeholder="Apellido">
-							</div>
-						</div>
-	
-						<div class="flex flex-row gap-3 w-full">
-							<div class="w-full">
-								<label for="DNI2" class="block text-900 font-medium mb-2">DNI</label>
-								<input formControlName="sDni" id="DNI2" type="text" pInputText class="w-full mb-3" placeholder="DNI">
-							</div>
-	
-							<div class="w-full">
-								<label for="fechaNacimiento2" class="block text-900 font-medium mb-2">Fecha de nacimiento</label>
-								<p-calendar id="fechaNacimiento2" dateFormat="dd/mm/yy" [ngModelOptions]="{standalone: true}" [(ngModel)]="this.sBirthDate"></p-calendar>
-							</div>
-						</div>
-	
-						<div *ngIf="false" class="flex flex-column">
-							<label class="block text-900 font-medium mb-2">Foto de perfil</label>
-							<label class="mb-3 custom-file-upload">
-								<input (change)="handleFileInput($event.target)" type="file"/>
-								Imagen
-							</label>
-						</div>
-						<p *ngFor="let image of specialistImages" class="text-400"> {{ image?.name  }} </p>
-
-
-
-			
-						<app-items-list (selectedItem)="this.specialitySelected = $event" [items]="this.specialities" title="Especialidad"></app-items-list>
-						<div class="mb-4"></div>
-	
-	
-						<label for="email2" class="block text-900 font-medium mb-2">Email</label>
-						<input formControlName="sEmail" id="email2" type="text" pInputText class="w-full mb-3">
-				
-						<label for="password2" class="block text-900 font-medium mb-2">Password</label>
-						<input formControlName="sPassword" id="password2" type="password" pInputText class="w-full mb-3">
-	
-					</form>
-				</p-tabPanel>
-				<button (click)="this.onRegister()" pButton pRipple label="Registrar" icon="pi pi-user" class="mt-4 w-full"></button>
-			</p-tabView>
-
-		</div>
-	</div>
+		<ng-template pTemplate="footer">
+			<p-button label="Registrar" icon="pi pi-check"></p-button>
+		</ng-template>
+	</p-card>
 </div>

@@ -26,6 +26,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { CustomDialogComponent } from './components/custom-dialog/custom-dialog.component';
 import { AuthService } from './services/auth.service';
+import { NewUserFormComponent } from './components/new-user-form/new-user-form.component';
 
 @NgModule({
   	declarations: [
@@ -37,6 +38,7 @@ import { AuthService } from './services/auth.service';
 		ItemsListComponent,
 		UsersManagerComponent,
   		CustomDialogComponent,
+    NewUserFormComponent,
   	],
   	imports: [
 		CommonModule,
