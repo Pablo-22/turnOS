@@ -3,7 +3,7 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import firebase from "@firebase/app-compat";
 import { User } from "../entities/user";
 import { UsersService } from "./users.service";
-import { lastValueFrom } from "rxjs";
+import { lastValueFrom, Observable, Subject } from "rxjs";
 
 @Injectable()
 export class AuthService {
@@ -12,9 +12,27 @@ export class AuthService {
 	currentUser:User|undefined;
 	emailVerified:boolean = false;
 	accountVerified:boolean = false;
+	
+	private haveAdminAccessSubject = new Subject<boolean>();
+    haveAdminAccess$ = this.haveAdminAccessSubject.asObservable();
 
     
     constructor(private _auth : AngularFireAuth, private _usersService:UsersService){
+		this.isUserLogged().subscribe(x => {
+			if (x) {
+				this._usersService.getUserByEmail(x.email?? '').then(user => {
+					this.currentUser = user[0];
+
+					console.log(user);
+
+					if (this.currentUser.type == 'ADMIN') {
+						this.haveAdminAccessSubject.next(true);
+					} else {
+						this.haveAdminAccessSubject.next(false);
+					}
+				});
+			}
+		});
 	}
 
     async login(email: string, password: string){
@@ -53,11 +71,6 @@ export class AuthService {
 	async signUp(email: string, password: string){
         try{
             let result:any = await this._auth.createUserWithEmailAndPassword(email, password);
-			
-			let user:User = new User();
-			user.email = email;
-
-			this._usersService.create(user);
 
 			return result;
         }

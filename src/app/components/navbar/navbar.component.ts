@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoaderService, LoaderState } from 'src/app/services/loader.service';
 
 @Component({
 	selector: 'app-navbar',
@@ -14,9 +15,12 @@ export class NavbarComponent implements OnInit {
 	displaySideBar:boolean = false;
 	UserLogged:boolean = false;
 
+	loading:boolean = false;
+	haveAdminAccess:boolean = false
 
 
-	constructor(private _auth:AuthService) {
+
+	constructor(private _auth:AuthService, private _loaderService:LoaderService) {
 		this._auth.userLogged.subscribe(x => {
 			if (x) {
 				this.UserLogged = true;
@@ -24,6 +28,14 @@ export class NavbarComponent implements OnInit {
 				this.UserLogged = false;
 			}
 		})
+
+		this._loaderService.loaderState
+            .subscribe((state: LoaderState) => {
+                this.loading = state.show;
+				console.log(state);
+            });
+		
+		this.checkAdminAccess();
 	}
 
 	ngOnInit(): void {
@@ -34,11 +46,9 @@ export class NavbarComponent implements OnInit {
 		this._auth.logOut();
 	}
 
-	haveAdminAccess(){
-		if (this.UserLogged && this._auth.currentUser?.type == 'ADMIN') {
-			return true;
-		}
-		return false;
+	checkAdminAccess(){
+		this._auth.haveAdminAccess$.subscribe(x => {
+			this.haveAdminAccess = x;
+		})
 	}
-
 }

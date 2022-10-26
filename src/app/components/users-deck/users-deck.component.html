@@ -1,0 +1,13 @@
+<div class="flex flex-row gap-4 justify-content-center avatars-deck">
+	<div *ngFor="let patient of patients" (click)="this.onUserSelected(patient)">
+		<img src="{{ patient.images[0] }}" class="avatar" alt="">
+	</div>
+
+	<div *ngFor="let specialist of specialists" (click)="this.onUserSelected(specialist)">
+		<img src="{{ specialist.images[0] }}" class="avatar" alt="">
+	</div>
+
+	<div *ngFor="let admin of admins" (click)="this.onUserSelected(admin)">
+		<img src="{{ admin.images[0] }}" class="avatar" alt="">
+	</div>
+</div>

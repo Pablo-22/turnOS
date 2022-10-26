@@ -5,7 +5,6 @@ import { Log } from '../entities/log';
 import { Patient } from '../entities/patient';
 import { Specialist } from '../entities/specialist';
 import { User } from '../entities/user';
-import { AuthService } from './auth.service';
 
 @Injectable({
   	providedIn: 'root'
@@ -48,6 +47,8 @@ export class UsersService {
 			return;
 		}
 
+		console.log(user.images)
+
 		// Crea un nuevo documento con los datos del usuario, dentro de la colección 'users'
 		let newUserDocRef = doc(this.usersCollection);
 
@@ -58,13 +59,13 @@ export class UsersService {
 					id: newUserDocRef.id,
 					email: specialist.email,
 					approvedProfile: specialist.approvedProfile,
-					password: specialist.password,
+					//password: specialist.password,
 					type: specialist.type,
 					name: specialist.name,
 					surname: specialist.surname,
 					birthDate: specialist.birthDate,
 					dni: specialist.dni,
-					images: specialist.images,
+					images: JSON.parse( JSON.stringify(specialist.images) ),
 					speciality: specialist.speciality
 				})
 				break;
@@ -74,13 +75,13 @@ export class UsersService {
 					id: newUserDocRef.id,
 					email: patient.email,
 					approvedProfile: patient.approvedProfile,
-					password: patient.password,
+					//password: patient.password,
 					type: patient.type,
 					name: patient.name,
 					surname: patient.surname,
 					birthDate: patient.birthDate,
 					dni: patient.dni,
-					images: patient.images,
+					images: JSON.parse( JSON.stringify(patient.images) ),
 					healthInsurance: patient.healthInsurance
 				})
 				break;
@@ -89,20 +90,20 @@ export class UsersService {
 					id: newUserDocRef.id,
 					email: user.email,
 					approvedProfile: user.approvedProfile,
-					password: user.password,
+					//password: user.password,
 					type: user.type,
 					name: user.name,
 					surname: user.surname,
 					birthDate: user.birthDate,
 					dni: user.dni,
-					images: user.images
+					images: JSON.parse( JSON.stringify(user.images) )
 				})
 			break;
 		}
 
 		// Crea una nueva colección dentro del documento del usuario, para añadir los logs
 		user.id = newUserDocRef.id;
-		this.pushLoginLog(user);
+		//this.pushLoginLog(user);
 		
 		return newUserDocRef;
 	}
@@ -128,12 +129,12 @@ export class UsersService {
 					id: specialist.id,
 					email: specialist.email,
 					approvedProfile: specialist.approvedProfile,
-					password: specialist.password,
+					//password: specialist.password,
 					type: specialist.type,
 					name: specialist.name,
 					birthDate: specialist.birthDate,
 					dni: specialist.dni,
-					images: specialist.images,
+					images: JSON.parse( JSON.stringify(specialist.images) ),
 					speciality: specialist.speciality
 				})
 				break;
@@ -143,12 +144,12 @@ export class UsersService {
 					id: patient.id,
 					email: patient.email,
 					approvedProfile: patient.approvedProfile,
-					password: patient.password,
+					//password: patient.password,
 					type: patient.type,
 					name: patient.name,
 					birthDate: patient.birthDate,
 					dni: patient.dni,
-					images: patient.images,
+					images: JSON.parse( JSON.stringify(patient.images) ),
 					healthInsurance: patient.healthInsurance
 				})
 				break;
@@ -157,12 +158,12 @@ export class UsersService {
 					id: user.id,
 					email: user.email,
 					approvedProfile: user.approvedProfile,
-					password: user.password,
+					//password: user.password,
 					type: user.type,
 					name: user.name,
 					birthDate: user.birthDate,
 					dni: user.dni,
-					images: user.images
+					images: JSON.parse( JSON.stringify(user.images) )
 				})
 			break;
 		}

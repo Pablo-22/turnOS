@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { DialogData } from 'src/app/entities/dialog-data';
 
 @Component({
@@ -8,12 +9,13 @@ import { DialogData } from 'src/app/entities/dialog-data';
 })
 export class CustomDialogComponent implements OnInit {
 
-	@Input()
 	data:DialogData = new DialogData;
 
 	@Output() displayChanged = new EventEmitter<boolean>();
 
-	constructor() { }
+	constructor(public config: DynamicDialogConfig) {
+		this.data = this.config.data;
+	}
 
 	ngOnInit(): void {
 	}

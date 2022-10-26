@@ -27,6 +27,10 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { CustomDialogComponent } from './components/custom-dialog/custom-dialog.component';
 import { AuthService } from './services/auth.service';
 import { NewUserFormComponent } from './components/new-user-form/new-user-form.component';
+import { UserTypePipe } from './pipes/user-type.pipe';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ModalService } from './services/modal.service';
+import { UsersDeckComponent } from './components/users-deck/users-deck.component';
 
 @NgModule({
   	declarations: [
@@ -38,7 +42,9 @@ import { NewUserFormComponent } from './components/new-user-form/new-user-form.c
 		ItemsListComponent,
 		UsersManagerComponent,
   		CustomDialogComponent,
-    NewUserFormComponent,
+		NewUserFormComponent,
+  		UserTypePipe,
+    UsersDeckComponent,
   	],
   	imports: [
 		CommonModule,
@@ -55,9 +61,10 @@ import { NewUserFormComponent } from './components/new-user-form/new-user-form.c
 		HttpClientModule,
 		provideStorage(() => getStorage()),
 		AngularFireModule,
-		AngularFireStorageModule
+		AngularFireStorageModule,
+		DynamicDialogModule,
 	],
-	providers: [AuthService],
+	providers: [AuthService, DynamicDialogModule],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

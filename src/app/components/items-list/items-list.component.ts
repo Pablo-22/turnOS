@@ -13,8 +13,8 @@ export class ItemsListComponent implements OnInit {
 	@Input()
 	items:string[] = [ ]
 	
-	@Output() selectedItem = new EventEmitter<string>();
-	selectedItemValue:string = ''
+	@Output() selectedItem = new EventEmitter<string[]>();
+	selectedItems:string[] = []
 
 	@ViewChild('itemInput') emailInputElement!: ElementRef<HTMLInputElement>;
 
@@ -26,8 +26,12 @@ export class ItemsListComponent implements OnInit {
 	}
 
 	onItemSelected(item:string){
-		this.selectedItemValue = item;
-		this.selectedItem.emit(item);
+		if (this.selectedItems.includes(item)) {
+			this.selectedItems = this.selectedItems.filter(x => { return x !== item })
+		} else {
+			this.selectedItems.push(item);
+		}
+		this.selectedItem.emit(this.selectedItems);
 	}
 
 	onAddItem(item:string){
@@ -42,7 +46,7 @@ export class ItemsListComponent implements OnInit {
 	}
 
 	getItemStyle(item:string){
-		if (item == this.selectedItemValue) {
+		if (this.selectedItems.includes(item)) {
 			return 'item-selected'
 		}else {
 			return 'chip'

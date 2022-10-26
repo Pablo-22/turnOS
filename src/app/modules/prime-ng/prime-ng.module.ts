@@ -15,11 +15,13 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {AutoFocusModule} from 'primeng/autofocus';
 import {DataViewModule} from 'primeng/dataview';
 import {DropdownModule} from 'primeng/dropdown';
-import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {DialogModule} from 'primeng/dialog';
 import {CardModule} from 'primeng/card';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {AvatarModule} from 'primeng/avatar';
+import {AvatarGroupModule} from 'primeng/avatargroup';
+
 
 @NgModule({
   declarations: [],
@@ -39,11 +41,12 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 	AutoFocusModule,
 	DataViewModule,
 	DropdownModule,
-	DynamicDialogModule,
 	DialogModule,
 	CardModule,
 	InputSwitchModule,
 	ProgressSpinnerModule,
+	AvatarModule,
+	AvatarGroupModule,
   ]
 })
 export class PrimeNgModule { }

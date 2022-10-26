@@ -1,22 +1,29 @@
 <div class="px-3">
 	<h1 class="text-600 text-6xl"> <span class="text-primary"> Administración </span> de usuarios</h1>
 
-	<div class="grid">
-		<p-card *ngFor="let user of users" class="col-12 md:col-6 lg:col-3 xl:col-2" header="{{ user.name }} {{ user.surname }}">
-
-			<p> {{ user.email }} </p>
-
-			<p-chip class="block my-3" styleClass="custom-chip" label="{{ user.type }}"></p-chip>
-			
-			<label for="item" class="text-900 font-medium mb-2">DNI: </label>
-			{{ user.dni }}
-
-			<ng-template *ngIf="user.type == 'SPECIALIST' || user.type == 'ADMIN'" pTemplate="footer">
-				<div class="flex flex-row align-items-center">
-					<p class="text-900 font-medium"> Perfil aprobado: </p>
-					<p-inputSwitch (onChange)="updateUserStatus(user)" class="ml-4" [(ngModel)]="user.approvedProfile"></p-inputSwitch>
-				</div>
-			</ng-template>
-		</p-card>
-	</div>
+	<p-tabView>
+		<p-tabPanel header="Usuarios">
+			<div class="grid">
+				<p-card *ngFor="let user of users" class="col-12 md:col-6 lg:col-3 xl:col-2" header="{{ user.name }} {{ user.surname }}">
+		
+					<p style="overflow-wrap: break-word;"> {{ user.email }} </p>
+		
+					<p-chip class="block my-3" styleClass="custom-chip" label="{{ user.type | userType }}"></p-chip>
+					
+					<label for="item" class="text-900 font-medium mb-2">DNI: </label>
+					{{ user.dni }}
+		
+					<ng-template *ngIf="user.type == 'SPECIALIST' || user.type == 'ADMIN'" pTemplate="footer">
+						<div class="flex flex-row align-items-center">
+							<p class="text-900 font-medium"> Perfil aprobado: </p>
+							<p-inputSwitch (onChange)="updateUserStatus(user)" class="ml-4" [(ngModel)]="user.approvedProfile"></p-inputSwitch>
+						</div>
+					</ng-template>
+				</p-card>
+			</div>
+		</p-tabPanel>
+		<p-tabPanel header="Añadir usuario">
+			<app-new-user-form userType="ADMIN"></app-new-user-form>
+		</p-tabPanel>
+	</p-tabView>
 </div>

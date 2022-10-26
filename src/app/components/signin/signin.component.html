@@ -1,35 +1,44 @@
-<p-dialog (onHide)="this.dialogData.onHideEvent ? this.dialogData.onHideEvent() : '' " [header]="this.dialogData.title" [(visible)]="this.displayDialog">
-    <app-custom-dialog [data]="this.dialogData" (displayChanged)="this.displayDialog = $event"></app-custom-dialog>
-</p-dialog>
-
-<div class="text-center mb-5">
+<div class="text-center mb-3">
 	<i class="pi pi-user text-primary" style="font-size: 2rem"></i>
 	<div class="text-900 text-3xl font-semibold mb-3">Crear cuenta</div>
 	<span class="text-600 font-medium line-height-3">¿Ya estás registrado?</span>
-	<a [routerLink]="'/signin'" class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Iniciar sesión</a>
+	<a [routerLink]="'/login'" class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Iniciar sesión</a>
 </div>
 
-<div class="flex flex-row gap-6 justify-content-center align-items-stretch">
-	<p-card header="Especialista" [style]="{'width': '15rem', 'height': '31rem'}">
-		<ng-template pTemplate="header">
-			<img alt="Card" src="../../../assets/pexels-antoni-shkraba-6749773.jpg">
-		</ng-template>
-		<p>Configure su disponibilidad y permita a los pacientes reservar turnos</p>
+<div *ngIf="!this.displayForm">
 
-		<ng-template pTemplate="footer">
-			<p-button label="Registrar" icon="pi pi-check"></p-button>
-		</ng-template>
-	</p-card>
-	
-	
-	<p-card header="Paciente" [style]="{'width': '15rem', 'height': '31rem'}">
-		<ng-template pTemplate="header">
-			<img alt="Card" src="../../../assets/pexels-mart-production-7089019.jpg">
-		</ng-template>
-		<p>Consulte la disponibilidad de los especialistas para agendar turnos</p>
+	<div class="text-700 font-semibold text-2xl text-center mb-3 font-segoe">
+		Seleccione el perfil
+	</div>
 
-		<ng-template pTemplate="footer">
-			<p-button label="Registrar" icon="pi pi-check"></p-button>
-		</ng-template>
-	</p-card>
+	<div class="flex flex-row gap-6 justify-content-center align-items-stretch">
+		<p-card header="Especialista" [style]="{'width': '15rem', 'height': '31rem'}">
+			<ng-template pTemplate="header">
+				<img alt="Card" src="../../../assets/pexels-antoni-shkraba-6749773.jpg">
+			</ng-template>
+			<p>Configure su disponibilidad y permita a los pacientes reservar turnos</p>
+			
+			<ng-template pTemplate="footer">
+				<button pButton (click)="this.displayForm = true; this.selectedUserType = 'SPECIALIST'" label="Registrar" icon="pi pi-check"></button>
+			</ng-template>
+		</p-card>
+		
+		
+		<p-card header="Paciente" [style]="{'width': '15rem', 'height': '31rem'}">
+			<ng-template pTemplate="header">
+				<img alt="Card" src="../../../assets/pexels-mart-production-7089019.jpg">
+			</ng-template>
+			<p>Consulte la disponibilidad de los especialistas para agendar turnos</p>
+			
+			<ng-template pTemplate="footer">
+				<button pButton (click)="this.displayForm = true; this.selectedUserType = 'PATIENT'" label="Registrar" icon="pi pi-check"></button>
+			</ng-template>
+		</p-card>
+	</div>
+
+</div>
+
+
+<div *ngIf="this.displayForm" class="flex justify-content-center" >
+	<app-new-user-form [showReturnButton]="true" (onReturn)="this.displayForm = false; this.selectedUserType = ''" style="max-width: 50rem;" [userType]="this.selectedUserType"></app-new-user-form>
 </div>

@@ -1,56 +1,62 @@
-<p-dialog (onHide)="this.dialogData.onHideEvent ? this.dialogData.onHideEvent() : '' " [header]="this.dialogData.title" [(visible)]="this.displayDialog">
-    <app-custom-dialog [data]="this.dialogData" (displayChanged)="this.displayDialog = $event"></app-custom-dialog>
-</p-dialog>
-
-<form [formGroup]="this.form">
-	<div class="flex flex-row gap-3 w-full">
-		<div class="w-full">
-			<label for="name" class="block text-900 font-medium mb-2">Nombre</label>
-			<input formControlName="name" id="name" type="text" pInputText class="w-full mb-3" placeholder="Nombre">
-		</div>
+<div class="px-3 pb-3 pt-1 shadow-5">
+	<form [formGroup]="this.form" class="font-segoe">
 		
-		<div class="w-full">
-			<label for="Surname" class="block text-900 font-medium mb-2">Apellido</label>
-			<input formControlName="surname" id="Surname" type="text" pInputText class="w-full mb-3" placeholder="Apellido">
+		<div class="flex flex-row align-items-center gap-2">
+			<button *ngIf="" (click)="this.goBack()" pButton type="button" class="p-button-text" icon="pi pi-arrow-left"></button>
+			<p class="text-2xl font-bold text-primary"> {{ this.userType | userType }} </p>
 		</div>
-	</div>
-
-	<div class="flex flex-row gap-3 w-full">
-		<div class="w-full">
-			<label for="DNI" class="block text-900 font-medium mb-2">DNI</label>
-			<input formControlName="dni" id="DNI" type="text" pInputText class="w-full mb-3" placeholder="DNI">
+	
+		<div class="flex flex-row gap-3 w-full">
+			<div class="w-full">
+				<label for="name" class="block text-900 font-medium mb-2">Nombre</label>
+				<input formControlName="name" id="name" type="text" pInputText class="w-full mb-3" placeholder="Nombre">
+			</div>
+			
+			<div class="w-full">
+				<label for="Surname" class="block text-900 font-medium mb-2">Apellido</label>
+				<input formControlName="surname" id="Surname" type="text" pInputText class="w-full mb-3" placeholder="Apellido">
+			</div>
 		</div>
-
-		<div *ngIf="this.userType == 'PATIENT'" class="w-full">
-			<label for="obraSocial" class="block text-900 font-medium mb-2">Obra Social</label>
-			<input formControlName="healthInsurance" id="obraSocial" type="text" pInputText class="w-full mb-3" placeholder="Obra Social">
+	
+		<div class="flex flex-row gap-3 w-full">
+			<div class="w-full">
+				<label for="DNI" class="block text-900 font-medium mb-2">DNI</label>
+				<input formControlName="dni" id="DNI" type="text" pInputText class="w-full mb-3" placeholder="DNI">
+			</div>
+	
+			<div *ngIf="this.userType == 'PATIENT'" class="w-full">
+				<label for="obraSocial" class="block text-900 font-medium mb-2">Obra Social</label>
+				<input formControlName="healthInsurance" id="obraSocial" type="text" pInputText class="w-full mb-3" placeholder="Obra Social">
+			</div>
+			
+			<div class="w-full">
+				<label for="fechaNacimiento" class="block text-900 font-medium mb-2">Fecha de nacimiento</label>
+				<p-calendar id="fechaNacimiento" dateFormat="dd/mm/yy" [ngModelOptions]="{standalone: true}"  [(ngModel)]="this.userBirthDate"></p-calendar>
+			</div>
 		</div>
-		
-		<div class="w-full">
-			<label for="fechaNacimiento" class="block text-900 font-medium mb-2">Fecha de nacimiento</label>
-			<p-calendar id="fechaNacimiento" dateFormat="dd/mm/yy" [ngModelOptions]="{standalone: true}"  [(ngModel)]="this.userBirthDate"></p-calendar>
+	
+		<div *ngIf="true" class="flex flex-column gap-3 w-full mb-3">
+			<label class="block text-900 font-medium mb-2">Foto de perfil</label>
+			<p-fileUpload #fileUploader 
+				name="myfile[]" [multiple]="true" accept="image/*"
+				[customUpload]="true" (uploadHandler)="handleFileInput($event)" 
+				[fileLimit]="2" [showUploadButton]="false" [showCancelButton]="false"
+				(onSelect)="this.handleFileInput($event.currentFiles)"
+				(onRemove)="this.removeFile($event.file)">
+			</p-fileUpload>
 		</div>
-	</div>
+	
+		<app-items-list *ngIf="this.userType == 'SPECIALIST'" (selectedItem)="this.specialitySelected = $event" [items]="this.specialities" title="Especialidad"></app-items-list>
+		<div class="mb-4"></div>
+	
+	
+		<label for="email1" class="block text-900 font-medium mb-2">Email</label>
+		<input formControlName="email" id="email1" type="text" pInputText class="w-full mb-3">
+	
+		<label for="password1" class="block text-900 font-medium mb-2">Password</label>
+		<input formControlName="password" id="password1" type="password" pInputText class="w-full mb-3">
+	
+		<button (click)="this.onRegister()" pButton class="w-full" type="button" label="Registrar" icon="pi pi-check"></button>
+	</form>
+</div>
 
-	<div *ngIf="false"  class="flex flex-row gap-3 w-full mb-3">
-		<label class="block text-900 font-medium mb-2">Foto de perfil</label>
-		<label class="custom-file-upload">
-			<input multiple type="file"/>
-			Imagen 1
-		</label>
-
-	</div>
-	<p *ngFor="let image of userImages" class="text-400">{{ image.name  }} </p>
-
-
-	<app-items-list *ngIf="this.userType == 'SPECIALIST'" (selectedItem)="this.specialitySelected = $event" [items]="this.specialities" title="Especialidad"></app-items-list>
-	<div class="mb-4"></div>
-
-
-	<label for="email1" class="block text-900 font-medium mb-2">Email</label>
-	<input formControlName="email" id="email1" type="text" pInputText class="w-full mb-3">
-
-	<label for="password1" class="block text-900 font-medium mb-2">Password</label>
-	<input formControlName="password" id="password1" type="password" pInputText class="w-full mb-3">
-
-</form>

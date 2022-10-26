@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FileUpload } from 'primeng/fileupload';
-import { finalize, Observable } from 'rxjs';
+import { finalize, lastValueFrom, Observable } from 'rxjs';
 
 
 @Injectable({
@@ -14,17 +14,15 @@ export class CloudStorageService {
   	
 	constructor(private storage: AngularFireStorage) {}
   
-	uploadFile(event:any) {
-		const file = event.target.files[0];
-		const filePath = 'name-your-file-path-here';
+	async uploadFile(file:File) {
+		const filePath = 'profileImg/' + file.name;
 		const fileRef = this.storage.ref(filePath);
 		const task = this.storage.upload(filePath, file);
 
 		// observe percentage changes
 		this.uploadPercent = task.percentageChanges();
+		await lastValueFrom(task.percentageChanges());
 		// get notified when the download URL is available
-		task.snapshotChanges().pipe(
-			finalize(() => this.downloadURL = fileRef.getDownloadURL() )
-		).subscribe()
+		return lastValueFrom(fileRef.getDownloadURL());
 	}
 }

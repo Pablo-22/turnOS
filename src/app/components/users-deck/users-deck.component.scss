@@ -1,0 +1,19 @@
+.avatars-deck{
+	height: 5rem;
+	width: 60vw;
+	overflow-x: auto;
+}
+
+.avatar {
+	cursor: pointer;
+	vertical-align: middle;
+	width: 3.125rem;
+	height: 3.125rem;
+	border-radius: 8px;
+	transition: width .2s, height .2s;
+}
+
+.avatar:hover {
+	width: 54px;
+	height: 54px;
+}

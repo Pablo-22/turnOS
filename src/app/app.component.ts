@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DialogData } from './entities/dialog-data';
 
 @Component({
 	selector: 'app-root',
@@ -11,7 +13,6 @@ export class AppComponent implements OnInit {
 	displaySideBar:boolean = false;
 	
 	constructor(private primengConfig: PrimeNGConfig){
-
 	}
 
 	ngOnInit() {

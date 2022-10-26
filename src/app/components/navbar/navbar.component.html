@@ -7,7 +7,7 @@
 			
 			<button *ngIf="!this.UserLogged" [routerLink]="'/signin'" pButton pRipple class="p-button-text p-button-plain nav-item"> Registrarme </button>
 
-			<button *ngIf="this.haveAdminAccess()" [routerLink]="'/users-manager'" pButton pRipple class="p-button-text p-button-plain nav-item"> Usuarios </button>
+			<button *ngIf="this.haveAdminAccess" [routerLink]="'/users-manager'" pButton pRipple class="p-button-text p-button-plain nav-item"> Usuarios </button>
 
 
 			<button *ngIf="this.UserLogged" (click)="this.onLogOut()" pButton pRipple class="p-button-text p-button-plain nav-item"> Cerrar sesión </button>
@@ -25,3 +25,9 @@
 		Turn<span class="text-primary">OS</span>
 	</div>
 </div>
+
+<div *ngIf="this.loading" class="horizontal-bar-wrap">
+	<div class="bar1 bar"></div>
+</div>
+
+<div class="mb-3"></div>

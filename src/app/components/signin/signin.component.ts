@@ -1,24 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/compat/storage';
-import { Timestamp } from '@angular/fire/firestore';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { finalize } from 'rxjs';
+import { DialogService } from 'primeng/dynamicdialog';
 import { DialogData } from 'src/app/entities/dialog-data';
-import { Patient } from 'src/app/entities/patient';
-import { Specialist } from 'src/app/entities/specialist';
-import { AuthService } from 'src/app/services/auth.service';
-import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss']
+  styleUrls: ['./signin.component.scss'],
+  providers: [DialogService]
 })
 export class SigninComponent implements OnInit {
 	
 	displayDialog:boolean = false;
 	dialogData:DialogData = new DialogData();
+	displayForm:boolean = false;
+
+	selectedUserType:'SPECIALIST'|'PATIENT'|'' = '';
 
 	constructor() {
 	}

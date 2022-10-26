@@ -1,4 +1,7 @@
 :host ::ng-deep .p-chip.custom-chip {
     background: var(--primary-color);
     color: var(--primary-color-text);
+	padding-block: 3px;
+	padding-inline: 15px;
+	border-radius: 25px;
 }
