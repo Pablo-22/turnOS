@@ -2,7 +2,7 @@
 	<form [formGroup]="this.form" class="font-segoe">
 		
 		<div class="flex flex-row align-items-center gap-2">
-			<button *ngIf="" (click)="this.goBack()" pButton type="button" class="p-button-text" icon="pi pi-arrow-left"></button>
+			<button *ngIf="this.showReturnButton" (click)="this.goBack()" pButton type="button" class="p-button-text" icon="pi pi-arrow-left"></button>
 			<p class="text-2xl font-bold text-primary"> {{ this.userType | userType }} </p>
 		</div>
 	
