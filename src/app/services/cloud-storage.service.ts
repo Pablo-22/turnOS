@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Timestamp } from '@angular/fire/firestore';
 import { FileUpload } from 'primeng/fileupload';
 import { finalize, lastValueFrom, Observable } from 'rxjs';
 
@@ -15,7 +16,11 @@ export class CloudStorageService {
 	constructor(private storage: AngularFireStorage) {}
   
 	async uploadFile(file:File) {
-		const filePath = 'profileImg/' + file.name;
+		const date = new Date()
+		date.setMinutes( date.getMinutes() + date.getTimezoneOffset() ); // Para corregir problemas de zona horaria
+		let timestamp = Timestamp.fromDate(date)
+
+		const filePath = 'profileImg/' + file.name + '-' + timestamp.toMillis();
 		const fileRef = this.storage.ref(filePath);
 		const task = this.storage.upload(filePath, file);
 

@@ -15,6 +15,7 @@ export class AuthService {
 	
 	private haveAdminAccessSubject = new Subject<boolean>();
     haveAdminAccess$ = this.haveAdminAccessSubject.asObservable();
+    haveAdminAccess:boolean = false;
 
     
     constructor(private _auth : AngularFireAuth, private _usersService:UsersService){
@@ -23,9 +24,8 @@ export class AuthService {
 				this._usersService.getUserByEmail(x.email?? '').then(user => {
 					this.currentUser = user[0];
 
-					console.log(user);
 
-					if (this.currentUser.type == 'ADMIN') {
+					if (this.currentUser?.type == 'ADMIN') {
 						this.haveAdminAccessSubject.next(true);
 					} else {
 						this.haveAdminAccessSubject.next(false);
@@ -33,6 +33,10 @@ export class AuthService {
 				});
 			}
 		});
+
+		this.haveAdminAccess$.subscribe(x => {
+			this.haveAdminAccess = x;
+		})
 	}
 
     async login(email: string, password: string){
@@ -82,6 +86,7 @@ export class AuthService {
 	}
    
 	logOut(){
+		this.haveAdminAccessSubject.next(false);
 		this._auth.signOut();
 	}
 

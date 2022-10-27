@@ -17,7 +17,6 @@ export class UsersService {
   	constructor(private _firestore: Firestore) {
 		this.usersCollection = collection(this._firestore, 'users');
 		this.logsCollection = collection(this._firestore, 'logs');
-		console.log(this.usersCollection);
 	}
 
 	getAll() {
@@ -47,8 +46,6 @@ export class UsersService {
 			return;
 		}
 
-		console.log(user.images)
-
 		// Crea un nuevo documento con los datos del usuario, dentro de la colección 'users'
 		let newUserDocRef = doc(this.usersCollection);
 
@@ -59,7 +56,7 @@ export class UsersService {
 					id: newUserDocRef.id,
 					email: specialist.email,
 					approvedProfile: specialist.approvedProfile,
-					//password: specialist.password,
+					password: specialist.password,
 					type: specialist.type,
 					name: specialist.name,
 					surname: specialist.surname,
@@ -75,7 +72,7 @@ export class UsersService {
 					id: newUserDocRef.id,
 					email: patient.email,
 					approvedProfile: patient.approvedProfile,
-					//password: patient.password,
+					password: patient.password,
 					type: patient.type,
 					name: patient.name,
 					surname: patient.surname,
@@ -90,7 +87,7 @@ export class UsersService {
 					id: newUserDocRef.id,
 					email: user.email,
 					approvedProfile: user.approvedProfile,
-					//password: user.password,
+					password: user.password,
 					type: user.type,
 					name: user.name,
 					surname: user.surname,

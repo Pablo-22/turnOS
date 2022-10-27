@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService, LoaderState } from 'src/app/services/loader.service';
@@ -20,7 +21,7 @@ export class NavbarComponent implements OnInit {
 
 
 
-	constructor(private _auth:AuthService, private _loaderService:LoaderService) {
+	constructor(private _auth:AuthService, private _loaderService:LoaderService, private _router:Router) {
 		this._auth.userLogged.subscribe(x => {
 			if (x) {
 				this.UserLogged = true;
@@ -32,7 +33,6 @@ export class NavbarComponent implements OnInit {
 		this._loaderService.loaderState
             .subscribe((state: LoaderState) => {
                 this.loading = state.show;
-				console.log(state);
             });
 		
 		this.checkAdminAccess();
@@ -44,6 +44,8 @@ export class NavbarComponent implements OnInit {
 
 	onLogOut(){
 		this._auth.logOut();
+		this._router.navigate(['/']);
+
 	}
 
 	checkAdminAccess(){

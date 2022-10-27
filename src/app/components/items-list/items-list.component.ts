@@ -42,7 +42,6 @@ export class ItemsListComponent implements OnInit {
 
 	focusItemInput(){
 		this.emailInputElement.nativeElement.focus()
-		console.log(this.emailInputElement.nativeElement.value)
 	}
 
 	getItemStyle(item:string){

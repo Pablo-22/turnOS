@@ -4,7 +4,6 @@ import { Timestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import { DialogData } from 'src/app/entities/dialog-data';
 import { Patient } from 'src/app/entities/patient';
 import { Specialist } from 'src/app/entities/specialist';
 import { User } from 'src/app/entities/user';
@@ -55,11 +54,13 @@ export class NewUserFormComponent implements OnInit, OnChanges {
 	) {
 		this.form = new FormGroup({
 			name: new FormControl('', [Validators.required] ),
+
 			surname: new FormControl('', [Validators.required] ),
-			dni: new FormControl('', [Validators.required] ),
+
+			dni: new FormControl('', [Validators.required, Validators.pattern(/^([0-9])*$/)] ), //REGEX: Only Numbers allowed
 			healthInsurance: new FormControl({value: '', disabled: this.userType !== 'PATIENT'}, [Validators.required] ),
-			email: new FormControl('', [Validators.required] ),
-			password: new FormControl('', [Validators.required] ),
+			email: new FormControl('', [Validators.required, Validators.email] ),
+			password: new FormControl('', [Validators.required, Validators.minLength(8)] ),
 		});
 	}
 
@@ -83,7 +84,7 @@ export class NewUserFormComponent implements OnInit, OnChanges {
 
 		switch (this.userType) {
 			case 'PATIENT': // PATIENT
-				if (this.form.status != 'VALID') {
+				if (this.form.status != 'VALID' || this.userImages.length != 2) {
 					this._loaderService.hide();
 
 					this._modalService.dialogData.body = 'Por favor revise los datos ingresados. Todos los campos son obligatorios';
@@ -147,7 +148,7 @@ export class NewUserFormComponent implements OnInit, OnChanges {
 				break;
 			case 'SPECIALIST': // SPECIALIST
 
-				if (this.form.status != 'VALID' || !this.specialitySelected) {
+				if (this.form.status != 'VALID' || !this.specialitySelected || this.userImages.length != 1) {
 					this._loaderService.hide();
 
 					this._modalService.dialogData.body = 'Por favor revise los datos ingresados. Todos los campos son obligatorios';
@@ -209,7 +210,7 @@ export class NewUserFormComponent implements OnInit, OnChanges {
 				})
 				break;
 			case 'ADMIN':
-				if (this.form.status != 'VALID') {
+				if (this.form.status != 'VALID' || this.userImages.length != 1) {
 					this._loaderService.hide();
 
 					this._modalService.dialogData.body = 'Por favor revise los datos ingresados. Todos los campos son obligatorios';
