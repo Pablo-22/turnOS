@@ -31,6 +31,13 @@ import { UserTypePipe } from './pipes/user-type.pipe';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ModalService } from './services/modal.service';
 import { UsersDeckComponent } from './components/users-deck/users-deck.component';
+import { MyAppointmentsComponent } from './components/my-appointments/my-appointments.component';
+import { AppointmentsManagerComponent } from './components/appointments-manager/appointments-manager.component';
+import { RequestAppointmentComponent } from './components/request-appointment/request-appointment.component';
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
+import { SpecialistAvailabilityComponent } from './components/specialist-availability/specialist-availability.component';
+import { DayPipe } from './pipes/day.pipe';
+import { TimePipe } from './pipes/time.pipe';
 
 @NgModule({
   	declarations: [
@@ -45,6 +52,13 @@ import { UsersDeckComponent } from './components/users-deck/users-deck.component
 		NewUserFormComponent,
   		UserTypePipe,
     UsersDeckComponent,
+    MyAppointmentsComponent,
+    AppointmentsManagerComponent,
+    RequestAppointmentComponent,
+    MyProfileComponent,
+    SpecialistAvailabilityComponent,
+    DayPipe,
+    TimePipe,
   	],
   	imports: [
 		CommonModule,

@@ -21,7 +21,8 @@ import {InputSwitchModule} from 'primeng/inputswitch';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
-
+import {StepsModule} from 'primeng/steps';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [],
@@ -47,6 +48,8 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
 	ProgressSpinnerModule,
 	AvatarModule,
 	AvatarGroupModule,
+	StepsModule,
+	SelectButtonModule,
   ]
 })
 export class PrimeNgModule { }

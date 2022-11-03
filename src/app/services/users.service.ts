@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Log } from '../entities/log';
 import { Patient } from '../entities/patient';
 import { Specialist } from '../entities/specialist';
+import { SpecialistAvailability } from '../entities/specialist-availability';
 import { User } from '../entities/user';
 
 @Injectable({
@@ -12,10 +13,12 @@ import { User } from '../entities/user';
 export class UsersService {
 
 	private usersCollection: CollectionReference<DocumentData>;
+	private availabilityCollection: CollectionReference<DocumentData>;
 	private logsCollection: CollectionReference<DocumentData>;
 
   	constructor(private _firestore: Firestore) {
 		this.usersCollection = collection(this._firestore, 'users');
+		this.availabilityCollection = collection(this._firestore, 'availability');
 		this.logsCollection = collection(this._firestore, 'logs');
 	}
 
@@ -126,7 +129,7 @@ export class UsersService {
 					id: specialist.id,
 					email: specialist.email,
 					approvedProfile: specialist.approvedProfile,
-					//password: specialist.password,
+					password: specialist.password,
 					type: specialist.type,
 					name: specialist.name,
 					birthDate: specialist.birthDate,
@@ -141,7 +144,7 @@ export class UsersService {
 					id: patient.id,
 					email: patient.email,
 					approvedProfile: patient.approvedProfile,
-					//password: patient.password,
+					password: patient.password,
 					type: patient.type,
 					name: patient.name,
 					birthDate: patient.birthDate,
@@ -155,7 +158,7 @@ export class UsersService {
 					id: user.id,
 					email: user.email,
 					approvedProfile: user.approvedProfile,
-					//password: user.password,
+					password: user.password,
 					type: user.type,
 					name: user.name,
 					birthDate: user.birthDate,
@@ -178,5 +181,38 @@ export class UsersService {
 	delete(id: string) {
 		const userDocumentReference = doc(this._firestore, `users/${id}`);
 		return deleteDoc(userDocumentReference);
+	}
+
+	async getAvailabilityOfUser(specialistId:string){
+		const q = query(this.availabilityCollection, where("userId", "==", specialistId));
+		const querySnapshot = await getDocs(q);
+		let documents:SpecialistAvailability[] = [];
+		querySnapshot.docs.forEach(doc => {
+			let docData = doc.data() as SpecialistAvailability;
+			documents.push(docData);
+		})
+		return documents;
+	}
+
+	pushAvailability(specialistAvailability:SpecialistAvailability){
+		let newDocRef = doc(this.availabilityCollection);
+		setDoc(newDocRef, {
+			id: newDocRef.id,
+			userId: specialistAvailability.userId,
+			daysAvailability: JSON.parse( JSON.stringify(specialistAvailability.daysAvailability)),
+		})
+		return newDocRef.id
+	}
+
+	updateAvailability(specialistAvailability:SpecialistAvailability){
+		let id:string = specialistAvailability.id;
+		console.log(id)
+		let docRef = doc(this.availabilityCollection, id);
+		updateDoc(docRef, {
+			id: docRef.id,
+			userId: specialistAvailability.userId,
+			daysAvailability: JSON.parse( JSON.stringify(specialistAvailability.daysAvailability)),
+		})
+		return docRef.id
 	}
 }

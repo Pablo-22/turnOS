@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { User } from 'src/app/entities/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService, LoaderState } from 'src/app/services/loader.service';
 
@@ -11,13 +12,12 @@ import { LoaderService, LoaderState } from 'src/app/services/loader.service';
 })
 export class NavbarComponent implements OnInit {
 
-	userType:'SPECIALIST' | 'PATIENT' | 'ADMIN' | '' = '';
+	currentUser: User | undefined;
 
 	displaySideBar:boolean = false;
 	UserLogged:boolean = false;
 
 	loading:boolean = false;
-	haveAdminAccess:boolean = false
 
 
 
@@ -49,8 +49,8 @@ export class NavbarComponent implements OnInit {
 	}
 
 	checkAdminAccess(){
-		this._auth.haveAdminAccess$.subscribe(x => {
-			this.haveAdminAccess = x;
+		this._auth.currentUser$.subscribe(x => {
+			this.currentUser = Object.assign(new User, x);
 		})
 	}
 }

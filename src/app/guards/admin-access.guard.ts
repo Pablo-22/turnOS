@@ -14,7 +14,7 @@ export class AdminAccessGuard implements CanActivate {
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): boolean | UrlTree {
-		if (this._auth.haveAdminAccess) {
+		if (this._auth.currentUser?.type == 'ADMIN') {
 			return true;
 		}
 		return this._router.parseUrl('/');

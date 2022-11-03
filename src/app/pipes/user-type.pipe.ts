@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class UserTypePipe implements PipeTransform {
 
-  transform(value:string): string {
+  transform(value:string|undefined): string {
 	let returnValue:string = '';
     switch (value) {
 		case 'SPECIALIST':

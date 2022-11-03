@@ -1,0 +1,17 @@
+.chip{
+	padding: .4rem;
+	cursor: pointer;
+	background-color: rgb(244, 244, 244);
+	border-radius: 10px;
+}
+
+.profile-pic{
+	width: 5.125rem;
+	height: 5.125rem;
+	border-radius: 8px;
+	object-fit: cover;
+}
+
+.user-panel{
+	width: 50vw;
+}
