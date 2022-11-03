@@ -37,13 +37,12 @@ export class SpecialistAvailabilityComponent implements OnInit {
 
 	ngOnInit(): void {
 		this._auth.currentUser$.subscribe(x => {
-			console.log(x)
 			this._usersService.getAvailabilityOfUser(x?.id ?? '').then(y => {
 				y.forEach((s:SpecialistAvailability) => {
-					console.log(s as SpecialistAvailability);
 					let newObj = Object.assign(new SpecialistAvailability, s)
 					this.currentUserAvailability = newObj;
-					console.log('CURRENT USER AVA', this.currentUserAvailability)
+
+					console.log('Turnos disponibles: ', SpecialistAvailability.getAvailableAppointments(this.currentUserAvailability, 15))
 				})
 			})
 		})
@@ -91,8 +90,6 @@ export class SpecialistAvailabilityComponent implements OnInit {
 		this._auth.currentUser$.subscribe(x => {
 			if (x) {
 				this.currentUserAvailability.userId = x.id
-				console.log(this.currentUserAvailability)
-				console.log(isNewAvailability)
 				if (isNewAvailability) {
 					this.currentUserAvailability.id = this._usersService.pushAvailability(this.currentUserAvailability);
 				} else {

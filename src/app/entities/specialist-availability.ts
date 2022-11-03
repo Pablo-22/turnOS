@@ -61,6 +61,7 @@ export class SpecialistAvailability {
 				// Creo un turno por cada intervalo
 				shifts.forEach( shift => {
 					let newAppointment = new Appointment()
+					auxDay.setHours(0,0,0,0); // Setea el tiempo en 0
 					newAppointment.date = new Date(auxDay.getTime())
 					newAppointment.timeRange = shift
 
